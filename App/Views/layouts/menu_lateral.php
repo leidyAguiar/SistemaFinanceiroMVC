@@ -45,10 +45,11 @@
         <?php
         }
         ?>
-
-        <!-- <li>
-            <a href="./alterar_dados_cadastrais.php"><i class="las la-cog"></i>Configurações</a>
-        </li> -->
+        <li>
+            <a href="http://<?php echo APP_HOST; ?>/endereco/cadastro"><i class="las la-cog"></i>Configurações</a>
+        </li>
+        <li>
+            <a href="http://<?php echo APP_HOST; ?>/login/reset"><i class="las la-key"></i>Alterar Senha</a>
         <li>
             <a href="http://<?php echo APP_HOST; ?>/home/index"><i class="las la-power-off"></i>Logout</a>
         </li>

@@ -1,3 +1,5 @@
+<link href="http://<?php echo APP_HOST; ?>/public/css/style-dashboard.css" rel="stylesheet">
+
 <div class="container">
     <h1>Resetar senha</h1>
     <p>Por favor, entre com os dados para alterar a sua senha.</p>
@@ -26,6 +28,11 @@
                     <div class="form-group">
                         <label for="nome">Usuário:</label>
                         <input type="text" class="form-control" name="nome" value="<?php echo $viewVar['usuario']->__get("uso_nome"); ?>" readonly>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="email">E-mail*</label>
+                        <input type="email" class="form-control" name="email" placeholder="Seu e-mail" value="<?php echo $viewVar['usuario']->__get("uso_email"); ?>" required>
                     </div>
                     <br />
                     <div class="form-group">

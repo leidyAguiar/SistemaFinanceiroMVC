@@ -82,9 +82,8 @@ class UsuarioController extends Controller
         $usuario->__set("uso_senha", password_hash($usuario->__get("uso_senha"), PASSWORD_DEFAULT));
 
         try {
-
             $usuarioDAO->salvar($usuario);
-
+            
         } catch (\Exception $e) {
             Sessao::gravaMensagem($e->getMessage());
             $this->redirect('/usuario');
@@ -272,6 +271,7 @@ class UsuarioController extends Controller
 
         $usuario = new Usuario();
         $usuario->__set("uso_id", $_POST['id']);
+        $usuario->__set("uso_email", $_POST['email']);
         $password = $_POST['senha'];
         $senha_confirme = $_POST['senha_confirme'];
 
