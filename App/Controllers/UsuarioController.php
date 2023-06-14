@@ -205,7 +205,6 @@ class UsuarioController extends Controller
 
     public function registrar()
     {
-        print_r($_POST);
         $usuario = new Usuario();
         $usuario->__set("uso_nome", $_POST['nome']);
         $usuario->__set("uso_email", $_POST['email']);

@@ -33,15 +33,15 @@
         <?php
         if ($Sessao::retornaTipoUsuario() == $EnumTipoUsuario::ADMIN->value) {
         ?>
-            <!-- <li>
-                <a href="./administrador.php"><i class="las la-comment-alt"></i>Mensagens</a>
-            </li> -->
+            <li>
+                <a href="http://<?php echo APP_HOST; ?>/contato/index"><i class="las la-comment-alt"></i>Mensagens</a>
+            </li>
         <?php
         } else {
         ?>
-            <!-- <li>
-                <a href="./contato_usuario.php"><i class="las la-comment-alt"></i>Contato</a>
-            </li> -->
+            <li>
+                <a href="http://<?php echo APP_HOST; ?>/contato/cadastro"><i class="las la-comment-alt"></i>Contato</a>
+            </li>
         <?php
         }
         ?>
