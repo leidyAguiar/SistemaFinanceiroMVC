@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Controllers\HomeController;
-use App\Controllers\LoginController;
 use Exception;
 
 class App
