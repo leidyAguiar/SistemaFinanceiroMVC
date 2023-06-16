@@ -21,9 +21,9 @@ class ContatoController extends Controller
 
         $this->setViewParam('listaContatos', $contatoDAO->listar());
         $this->setViewParam('edicao', 'edicao');
-        
+
         $this->render('/contato/listarMens');
-        
+
         Sessao::limpaMensagem();
     }
 
@@ -54,7 +54,7 @@ class ContatoController extends Controller
         $contatoValidador = new ContatoValidador();
         $resultadoValidacao = $contatoValidador->validar($contato);
 
-        if($resultadoValidacao->getErros()){
+        if ($resultadoValidacao->getErros()) {
             Sessao::gravaErro($resultadoValidacao->getErros());
             $this->redirect('/contato/cadastro');
         }
@@ -86,7 +86,7 @@ class ContatoController extends Controller
 
         $contatoDAO = new ContatoDAO();
 
-        if(!$contatoDAO->excluir($contato->__get("con_id"))){
+        if (!$contatoDAO->excluir($contato->__get("con_id"))) {
             Sessao::gravaMensagem("Contato inexistente.");
             $this->redirect('/contato');
         }
@@ -106,7 +106,7 @@ class ContatoController extends Controller
 
         $contatoDAO = new ContatoDAO();
 
-        if(!$contatoDAO->lida($contato)){
+        if (!$contatoDAO->lida($contato)) {
             Sessao::gravaMensagem("Não foi possível marca mensagem como lida.");
             $this->redirect('/contato');
         }

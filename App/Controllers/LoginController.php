@@ -6,23 +6,24 @@ use App\Lib\Sessao;
 use App\Models\DAO\UsuarioDAO;
 use App\Models\DAO\TransacaoDAO;
 use App\Enums\EnumTipoTransacao;
+
 class LoginController extends Controller
 {
     public function index()
     {
-        $this->render('login/index'); 
+        $this->render('login/index');
 
         Sessao::limpaMensagem();
     }
 
-    public function autentica() 
+    public function autentica()
     {
         $uso_nome = $_POST['nome'];
         $uso_senha = $_POST['senha'];
 
         Sessao::gravaFormulario($_POST);
 
-        if(empty(trim($uso_nome)) && empty(trim($uso_senha))){
+        if (empty(trim($uso_nome)) && empty(trim($uso_senha))) {
             $erro[] = "Faltou digitar usuário e/ou senha!";
             Sessao::gravaErro($erro);
             $this->redirect('/login');
@@ -36,7 +37,7 @@ class LoginController extends Controller
             Sessao::gravaErro($erro);
             $this->redirect('/login');
         }
-       
+
         $usuario = $usuarioDAO->getById($uso_id);
         Sessao::gravarTipoUsuario($usuario->__get('tus_id'));
         Sessao::gravaLogin($uso_id, $uso_nome);
@@ -52,13 +53,13 @@ class LoginController extends Controller
     }
 
     public function register()
-    {   
+    {
         $this->render('login/cadastro');
 
         Sessao::limpaErro();
         Sessao::limpaMensagem();
     }
-    
+
     public function dashboard()
     {
         $this->auth();
@@ -74,7 +75,7 @@ class LoginController extends Controller
         $despesa = $transacaoDAO->listarTransacao(EnumTipoTransacao::DESPESA->value, $uso_id,  $data[0], $data[1]);
         $receita = $transacaoDAO->listarTransacao(EnumTipoTransacao::RECEITA->value, $uso_id,  $data[0], $data[1]);
 
-        
+
         $total_despesa = 0;
         foreach ($despesa as $despesa) {
             $total_despesa = $total_despesa + $despesa->__get("tran_valor");
@@ -88,7 +89,7 @@ class LoginController extends Controller
 
         $saldo_atual = $total_receita - $total_despesa;
         $this->setViewParam('saldo_atual', $saldo_atual);
-        $this->setViewParam('total_despesa', $total_despesa);   
+        $this->setViewParam('total_despesa', $total_despesa);
         $this->setViewParam('total_receita', $total_receita);
 
         $this->setViewParam('dataCompleta', $dataCompleta);
@@ -103,7 +104,7 @@ class LoginController extends Controller
 
         $usuario = $usuarioDAO->getById($uso_id);
 
-        if(!$usuario){
+        if (!$usuario) {
             Sessao::gravaMensagem("Usuário inexistente");
             $this->redirect('/login/dashboard');
         }
@@ -116,7 +117,7 @@ class LoginController extends Controller
         Sessao::limpaErro();
     }
 
-    public function logout() 
+    public function logout()
     {
         Sessao::limpaFormulario();
         Sessao::limpaMensagem();
@@ -125,7 +126,7 @@ class LoginController extends Controller
         $_SESSION["loggedin"] = false;
         unset($_SESSION['uso_nome']);
         unset($_SESSION['uso_id']);
-        
+
         $this->redirect('/home');
     }
 }

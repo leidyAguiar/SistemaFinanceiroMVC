@@ -12,7 +12,7 @@ abstract class Controller
 
     public function __construct($app)
     {
-        $this->setViewParam('nameController',$app->getControllerName());
+        $this->setViewParam('nameController', $app->getControllerName());
     }
 
     public function auth()
@@ -38,8 +38,8 @@ abstract class Controller
         $EnumTipoUsuario = EnumTipoUsuario::class;
 
         require_once PATH . '/App/Views/layouts/header.php';
-        
-        if(!str_contains($view, 'login/index') && !str_contains($view, 'login/cadastro')  && !str_contains($view, 'home'))
+
+        if (!str_contains($view, 'login/index') && !str_contains($view, 'login/cadastro')  && !str_contains($view, 'home'))
             require_once PATH . '/App/Views/layouts/menu_lateral.php';
         require_once PATH . '/App/Views/' . $view . '.php';
         require_once PATH . '/App/Views/layouts/footer.php';

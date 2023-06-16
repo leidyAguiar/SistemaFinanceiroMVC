@@ -109,7 +109,6 @@ class UsuarioDAO extends BaseDAO
             }
 
             return $usuario->__get("uso_id");
-
         } catch (\Exception $e) {
             throw new \Exception("Erro no acesso aos dados.", 500);
         }
