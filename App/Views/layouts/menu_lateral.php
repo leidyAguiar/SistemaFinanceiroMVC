@@ -46,7 +46,19 @@
         }
         ?>
         <li>
-            <a href="http://<?php echo APP_HOST; ?>/endereco/cadastro"><i class="las la-cog"></i>Configurações</a>
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="las la-cog"></i>Configurações
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdownMenu">
+
+                <li>
+                    <a href="http://<?php echo APP_HOST; ?>/endereco/cadastro">Cadastrar Endereço</a>
+                </li>
+                <li>
+                    <a href="http://<?php echo APP_HOST; ?>/endereco/edicao/<?=$Sessao::retornaUsuarioId() ?>">Editar Endereço</a>
+                </li>
+
+            </ul>
         </li>
         <li>
             <a href="http://<?php echo APP_HOST; ?>/login/reset"><i class="las la-key"></i>Alterar Senha</a>

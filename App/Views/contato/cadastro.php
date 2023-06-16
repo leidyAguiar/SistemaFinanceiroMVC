@@ -1,6 +1,6 @@
 <link href="http://<?php echo APP_HOST; ?>/public/css/style-dashboard.css" rel="stylesheet">
 
-<div class="container" style="margin-left:300px">
+<div class="container" style="margin-left:200px">
     <div class="row content">
         <div class="col-md-6 mb-3">
             <img src="http://<?php echo APP_HOST; ?>/public/img/contato.png" class="img-fluid" alt="image">
@@ -8,7 +8,14 @@
         <div class="col-md-6">
             <h2 class="signin-text mb-3" style="margin-top:100px;">Escreva uma mensagem para o NuAzul</h2>
             <p>Por favor, preencha os campos para que a mensagem seja enviada</p>
-            <div >
+            <div>
+                <?php if ($Sessao::retornaMensagem()) { ?>
+                    <div class="alert alert-warning" role="alert">
+                        <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <?= $Sessao::retornaMensagem() ?>
+                        <br>
+                    </div>
+                <?php } ?>
                 <?php if ($Sessao::retornaErro()) { ?>
                     <div class="alert alert-warning" role="alert">
                         <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -32,7 +39,7 @@
                     </div>
                     <br />
                     <button type="submit" class="btn btn-primary w100"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Enviar </button>
-                    <!-- <a href="http://<?php echo APP_HOST; ?>/contato" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Cancelar </a> -->
+                    <a href="http://<?php echo APP_HOST; ?>/login/dashboard" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Cancelar </a>
                 </form>
             </div>
             <div class=" col-md-3"></div>

@@ -218,7 +218,7 @@ class UsuarioController extends Controller
 
         if($resultadoValidacao->getErros()){
             Sessao::gravaErro($resultadoValidacao->getErros());
-            $this->redirect('/login/cadastro'); 
+            $this->redirect('/login/register'); 
         }
 
         $erros = [];
@@ -242,7 +242,7 @@ class UsuarioController extends Controller
 
         if ($erros) {
             Sessao::gravaErro($erros);
-            $this->redirect('/login/cadastro');
+            $this->redirect('/login/register');
         }
 
         $usuario->__set("uso_senha", password_hash($usuario->__get("uso_senha"), PASSWORD_DEFAULT));
