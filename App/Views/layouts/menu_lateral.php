@@ -63,7 +63,7 @@
         <li>
             <a href="http://<?php echo APP_HOST; ?>/login/reset"><i class="las la-key"></i>Alterar Senha</a>
         <li>
-            <a href="http://<?php echo APP_HOST; ?>/home/index"><i class="las la-power-off"></i>Logout</a>
+            <a href="http://<?php echo APP_HOST; ?>/login/logout"><i class="las la-power-off"></i>Logout</a>
         </li>
     </div>
 </section>

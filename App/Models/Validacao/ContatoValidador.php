@@ -11,12 +11,16 @@ class ContatoValidador {
     {
         $resultadoValidacao = new ResultadoValidacao();
 
-        if(empty($contato->__get("con_msg")) || empty($contato->__get("con_titulo")))
+        if(empty($contato->__get("con_msg")))
         {
             $resultadoValidacao->addErro('con_msg',"Mensagem: Este campo não pode ser vazio.");
+        }
+
+        if(empty($contato->__get("con_titulo")))
+        {
             $resultadoValidacao->addErro('con_titulo',"Título: Este campo não pode ser vazio.");
         }
-          
+            
         return $resultadoValidacao;
     }
 }

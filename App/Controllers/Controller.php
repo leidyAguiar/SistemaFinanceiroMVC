@@ -17,11 +17,18 @@ abstract class Controller
 
     public function auth()
     {
+        // verifico se a sessão está ativa(existe) e se o usuário está logado
+        // se nao tenho sessão ativa ou se nao estou logado, redireciono para a tela de login
         if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
             $this->redirect('\login');
         }
-
         return true;
+
+        // if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+        //     return true;
+        // } else {
+        //     $this->redirect('\login');
+        // }
     }
 
     public function render($view)

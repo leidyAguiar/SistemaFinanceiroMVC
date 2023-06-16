@@ -3,8 +3,6 @@
 namespace App\Models\DAO;
 
 use App\Models\Entidades\Usuario;
-use Exception;
-use PDO;
 
 class UsuarioDAO extends BaseDAO
 {
@@ -13,13 +11,6 @@ class UsuarioDAO extends BaseDAO
         $resultado = $this->select("SELECT * FROM usuario WHERE uso_id = $id");
 
         return $resultado->fetchObject(Usuario::class,);
-    }
-
-    public function listar()
-    {
-        $resultado = $this->select("SELECT * FROM usuario");
-
-        return $resultado->fetchAll(\PDO::FETCH_CLASS, Usuario::class);
     }
 
     public function salvar(Usuario $usuario)
@@ -94,17 +85,6 @@ class UsuarioDAO extends BaseDAO
             );
         } catch (\Exception $e) {
             throw new \Exception("Erro na atualização dos dados." . $e->getMessage(), 500);
-        }
-    }
-
-
-    public function excluir(int $id)
-    {
-        try {
-
-            return $this->delete('usuario', "uso_id = $id");
-        } catch (\Exception $e) {
-            throw new \Exception("Erro ao excluir o usuario. " . $e->getMessage(), 500);
         }
     }
 

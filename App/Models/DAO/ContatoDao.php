@@ -1,14 +1,7 @@
 <?php 
 namespace App\Models\DAO;
 use App\Models\Entidades\Contato;
-use Exception;
 class ContatoDao extends BaseDAO {
-    public function getById($id)
-    {
-        $resultado = $this->select("SELECT * FROM contatos WHERE uso_id = $id");
-
-        return $resultado->fetchObject(Contato::class);
-    }
 
     public function listar()
     {
@@ -39,29 +32,6 @@ class ContatoDao extends BaseDAO {
         }
     }
 
-    public function atualizar(Contato $contato)
-    {
-        try {
-            $con_id = $contato->__get("con_id");
-            $con_msg = $contato->__get("con_msg");
-            $con_titulo = $contato->__get("con_titulo");
-            $con_lida = $contato->__get("con_lida");
-
-            return $this->update('contatos', 
-                "con_msg = :con_msg, con_titulo = :con_titulo, con_lida = :con_lida",
-                [
-                    ':con_id'       => $con_id,
-                    ':con_mgs'      => $con_msg,
-                    ':con_titulo'   => $con_titulo,
-                    ':con_lida'     => $con_lida,
-                    ], 
-                    "con_id = :con_id");
-            
-        } catch (\Exception $e) {
-            throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
-        }
-    }
-
     public function lida(Contato $contato)
     {
         try {
@@ -80,6 +50,7 @@ class ContatoDao extends BaseDAO {
             throw new \Exception("Erro na atualização dos dados. " . $e->getMessage(), 500);
         }
     }
+
     public function excluir(int $id)
     {
         try {

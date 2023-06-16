@@ -10,103 +10,103 @@ use App\Enums\EnumTipoUsuario;
 
 class UsuarioController extends Controller
 {
-    public function cadastro()
-    {
-        $this->auth();
+    // public function cadastro()
+    // {
+    //     $this->auth();
 
-        $this->render('/usuario/cadastro');
+    //     $this->render('/usuario/cadastro');
 
-        Sessao::limpaFormulario();
-        Sessao::limpaMensagem();
-        Sessao::limpaErro();
-    }
+    //     Sessao::limpaFormulario();
+    //     Sessao::limpaMensagem();
+    //     Sessao::limpaErro();
+    // }
 
-    public function salvar()
-    {
-        $this->auth();
+    // public function salvar()
+    // {
+    //     $this->auth();
 
-        $usuario = new Usuario();
-        $usuario->__set("uso_nome", $_POST['nome']);
-        $usuario->__set("uso_email", $_POST['email']);
-        $usuario->__set("uso_senha", $_POST['senha']);
-        $usuario->__set("tusid", EnumTipoUsuario::COMUM->value);
-        $senha_confirme = $_POST['senha_confirme'];
+    //     $usuario = new Usuario();
+    //     $usuario->__set("uso_nome", $_POST['nome']);
+    //     $usuario->__set("uso_email", $_POST['email']);
+    //     $usuario->__set("uso_senha", $_POST['senha']);
+    //     $usuario->__set("tusid", EnumTipoUsuario::COMUM->value);
+    //     $senha_confirme = $_POST['senha_confirme'];
 
-        Sessao::gravaFormulario($_POST);
+    //     Sessao::gravaFormulario($_POST);
 
-        $usuarioValidador = new UsuarioValidador();
-        $resultadoValidacao = $usuarioValidador->validar($usuario);
+    //     $usuarioValidador = new UsuarioValidador();
+    //     $resultadoValidacao = $usuarioValidador->validar($usuario);
 
-        if($resultadoValidacao->getErros()){
-            Sessao::gravaErro($resultadoValidacao->getErros());
-            $this->redirect('/usuario/cadastro');
-        }
+    //     if($resultadoValidacao->getErros()){
+    //         Sessao::gravaErro($resultadoValidacao->getErros());
+    //         $this->redirect('/usuario/cadastro');
+    //     }
 
-        $erros = [];
-        $usuarioDAO = new UsuarioDAO();
+    //     $erros = [];
+    //     $usuarioDAO = new UsuarioDAO();
 
-        if($usuarioDAO->verificaEmail($usuario->__get("uso_email"))) {
-            $erros[] = "Email existente!";
-        }
+    //     if($usuarioDAO->verificaEmail($usuario->__get("uso_email"))) {
+    //         $erros[] = "Email existente!";
+    //     }
 
-        if($usuarioDAO->verificaUsuario($usuario->__get("uso_nome"))) {
-            $erros[] = "Nome de usuário já cadastrado!";
-        }
+    //     if($usuarioDAO->verificaUsuario($usuario->__get("uso_nome"))) {
+    //         $erros[] = "Nome de usuário já cadastrado!";
+    //     }
 
-        if(empty($usuario->__get("uso_senha")) || empty($senha_confirme)) {
-            $erros[] = "Senha ou confirmação de senha não digitada!";
-        }
+    //     if(empty($usuario->__get("uso_senha")) || empty($senha_confirme)) {
+    //         $erros[] = "Senha ou confirmação de senha não digitada!";
+    //     }
 
-        if(trim($usuario->__get("uso_senha")) != trim($senha_confirme)) {
-            $erros[] = "As senhas digitadas não coincidem!";
-        }
+    //     if(trim($usuario->__get("uso_senha")) != trim($senha_confirme)) {
+    //         $erros[] = "As senhas digitadas não coincidem!";
+    //     }
 
-        if ($erros) {
-            Sessao::gravaErro($erros);
-            $this->redirect('/usuario/cadastro');
-        }
+    //     if ($erros) {
+    //         Sessao::gravaErro($erros);
+    //         $this->redirect('/usuario/cadastro');
+    //     }
 
-        $usuario->__set("uso_senha", password_hash($usuario->__get("uso_senha"), PASSWORD_DEFAULT));
+    //     $usuario->__set("uso_senha", password_hash($usuario->__get("uso_senha"), PASSWORD_DEFAULT));
 
-        try {
-            $usuarioDAO->salvar($usuario);
+    //     try {
+    //         $usuarioDAO->salvar($usuario);
             
-        } catch (\Exception $e) {
-            Sessao::gravaMensagem($e->getMessage());
-            $this->redirect('/usuario');
-        }
+    //     } catch (\Exception $e) {
+    //         Sessao::gravaMensagem($e->getMessage());
+    //         $this->redirect('/usuario');
+    //     }
  
-        Sessao::limpaFormulario();
-        Sessao::limpaMensagem();
-        Sessao::limpaErro();
+    //     Sessao::limpaFormulario();
+    //     Sessao::limpaMensagem();
+    //     Sessao::limpaErro();
 
-        Sessao::gravaMensagem("Usuário adicionado com sucesso!");
+    //     Sessao::gravaMensagem("Usuário adicionado com sucesso!");
 
-        $this->redirect('/usuario');
-    }
+    //     $this->redirect('/usuario');
+    // }
     
-    public function edicao($params)
-    {
-        $this->auth();
+    // public function edicao($params)
+    // {
+    //     $this->auth();
 
-        $id = $params[0];
+    //     $id = $params[0];
 
-        $usuarioDAO = new UsuarioDAO();
+    //     $usuarioDAO = new UsuarioDAO();
 
-        $usuario = $usuarioDAO->getById($id);
+    //     $usuario = $usuarioDAO->getById($id);
 
-        if(!$usuario){
-            Sessao::gravaMensagem("Usuário inexistente");
-            $this->redirect('/usuario');
-        }
+    //     if(!$usuario){
+    //         Sessao::gravaMensagem("Usuário inexistente");
+    //         $this->redirect('/usuario');
+    //     }
 
-        self::setViewParam('usuario', $usuario);
+    //     self::setViewParam('usuario', $usuario);
 
-        $this->render('/usuario/editar');
+    //     $this->render('/usuario/editar');
 
-        Sessao::limpaMensagem();
-        Sessao::limpaErro();
-    }
+    //     Sessao::limpaMensagem();
+    //     Sessao::limpaErro();
+    // }
 
     public function atualizar()
     {
@@ -126,7 +126,7 @@ class UsuarioController extends Controller
 
         if($resultadoValidacao->getErros()){
             Sessao::gravaErro($resultadoValidacao->getErros());
-            $this->redirect('/usuario/edicao/' . $usuario->__get("uso_id"));
+            $this->redirect('/endereco/edicao/' . $usuario->__get("uso_id"));
         }
 
         $erros = [];
@@ -146,7 +146,7 @@ class UsuarioController extends Controller
 
         if ($erros) {
             Sessao::gravaErro($erros);
-            $this->redirect('/usuario/edicao/' . $usuario->__get("uso_id"));
+            $this->redirect('/endereco/edicao/' . $usuario->__get("uso_id"));
         }
 
         try{
@@ -155,7 +155,7 @@ class UsuarioController extends Controller
 
         } catch (\Exception $e) {
             Sessao::gravaMensagem($e->getMessage());
-            $this->redirect('/usuario');
+            $this->redirect('/login/dashboard');
         }
 
         Sessao::limpaFormulario();
@@ -164,29 +164,7 @@ class UsuarioController extends Controller
 
         Sessao::gravaMensagem("Usuário atualizado com sucesso!");
 
-        $this->redirect('/usuario');
-    }
-
-    public function exclusao($params)
-    {
-        $this->auth();
-
-        $id = $params[0];
-
-        $usuarioDAO = new UsuarioDAO();
-        $usuario = $usuarioDAO->getById($id);
-
-        if(!$usuario){
-            Sessao::gravaMensagem("Usuario (uso_id:{$id}) inexistente.");
-            $this->redirect('/usuario');
-        }
-
-        self::setViewParam('usuario',$usuario);
-
-        $this->render('/usuario/exclusao');
-
-        Sessao::limpaMensagem();
-        Sessao::limpaErro();
+        $this->redirect('/login/dashboard');
     }
 
     public function registrar()

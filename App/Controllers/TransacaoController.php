@@ -12,6 +12,7 @@ class TransacaoController extends Controller
     public function receitas()
     {
         $this->auth();
+        
         $uso_id = $_SESSION['uso_id'];
         $dataCompleta = date("Y-m");
         $data = [date("Y"), date("m")];
@@ -36,6 +37,7 @@ class TransacaoController extends Controller
     public function despesas()
     {
         $this->auth();
+
         $uso_id = $_SESSION['uso_id'];
         $dataCompleta = date("Y-m");
         $data = [date("Y"), date("m")];

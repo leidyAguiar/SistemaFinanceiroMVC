@@ -11,13 +11,20 @@ class UsuarioValidador {
     {
         $resultadoValidacao = new ResultadoValidacao();
 
-        if(empty($usuario->__get("uso_nome")) || empty($usuario->__get("uso_email")) || empty($usuario->__get("uso_senha")))
+        if(empty($usuario->__get("uso_nome")))
         {
             $resultadoValidacao->addErro('nome',"Nome: Este campo não pode ser vazio.");
-            $resultadoValidacao->addErro('email',"E-Mail: Este campo não pode ser vazio.");
-            $resultadoValidacao->addErro('password',"Senha: Este campo não pode ser vazio");
         }
-        
+
+        if(empty($usuario->__get("uso_email")))
+        {
+            $resultadoValidacao->addErro('email',"E-Mail: Este campo não pode ser vazio.");
+        }
+
+        if(empty($usuario->__get("senha")))
+        {
+            $resultadoValidacao->addErro('uso_senha',"Senha: Este campo não pode ser vazio");
+        }
         return $resultadoValidacao;
     }
 }

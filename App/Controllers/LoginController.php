@@ -5,9 +5,6 @@ namespace App\Controllers;
 use App\Lib\Sessao;
 use App\Models\DAO\UsuarioDAO;
 use App\Models\DAO\TransacaoDAO;
-use App\Models\Entidades\Usuario;
-use App\Models\Validacao\UsuarioValidador;
-use App\Enums\EnumTipoUsuario;
 use App\Enums\EnumTipoTransacao;
 class LoginController extends Controller
 {
@@ -61,57 +58,11 @@ class LoginController extends Controller
         Sessao::limpaErro();
         Sessao::limpaMensagem();
     }
-
-    public function registrar()
-    {
-        $usuario = new Usuario();
-
-        $usuario->__set("uso_nome", $_POST['nome']);
-        $usuario->__set("uso_email", $_POST['email']);
-        $usuario->__set("uso_senha", $_POST['senha']);
-        $usuario->__set("tusid", EnumTipoUsuario::COMUM->value);
-
-        Sessao::gravaFormulario($_POST);
-
-        $usuarioValidador = new UsuarioValidador();
-        $resultadoValidacao = $usuarioValidador->validar($usuario);
-
-        if($resultadoValidacao->getErros()){
-            Sessao::gravaErro($resultadoValidacao->getErros());
-            $this->redirect('/login/cadastro');
-        }
-
-        $usuarioDAO = new UsuarioDAO();
-
-        if($usuarioDAO->verificaEmail($usuario->__get("uso_email"))) {
-            $erro[] = "Email Existente!";
-            Sessao::gravaErro($erro);
-            $this->redirect('/login/cadastro');
-        }
-
-        try {
-
-            $usuarioDAO->salvar($usuario);
-
-        } catch (\Exception $e) {
-            Sessao::gravaMensagem($e->getMessage());
-            $this->redirect('/login');
-        }
-
-        Sessao::limpaFormulario();
-        Sessao::limpaMensagem();
-        Sessao::limpaErro();
-
-        Sessao::gravaMensagem("Usuário adicionado com sucesso!");
-
-        $this->redirect('/login');
-    }
-
     
     public function dashboard()
     {
-
         $this->auth();
+
         $uso_id = $_SESSION['uso_id'];
         $dataCompleta = date("Y-m");
         $data = [date("Y"), date("m")];
@@ -173,7 +124,8 @@ class LoginController extends Controller
 
         $_SESSION["loggedin"] = false;
         unset($_SESSION['uso_nome']);
-
+        unset($_SESSION['uso_id']);
+        
         $this->redirect('/home');
     }
 }
